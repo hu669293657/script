@@ -1,0 +1,1 @@
+netsh interface set interface name="以太网" admin=enable | netsh interface set interface name="WLAN" admin=disable
