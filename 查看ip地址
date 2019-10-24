@@ -1,0 +1,27 @@
+@echo off&setlocal enabledelayedexpansion
+title 查看IP地址 &mode con: cols=60 lines=15
+for /f "delims=" %%a in ('ipconfig') do (
+    if !a! gtr 0 (
+        echo %%a|find "媒体状态"&&goto a
+        echo %%a|find "IPv4"
+        echo %%a|find "子网"
+        echo %%a|find "网关"&&goto a
+    )
+    echo %%a|find "以太网适配器 以太网:"&&set /a a+=1
+)
+:a
+echo.
+for /f "delims=" %%a in ('ipconfig') do (
+    if !b! gtr 0 (
+        echo %%a|find "以太网适配器 内:"
+        echo %%a|find "媒体状态"&&goto a
+        echo %%a|find "IPv4"
+        echo %%a|find "子网"
+        echo %%a|find "网关"&&goto b
+    )
+    echo %%a|find "无线局域网适配器 WLAN:"&&set /a b+=1
+)
+:b
+echo.
+echo.
+echo 提示：10秒后自动退出！！！ &ping /n 10 127.1 >nul
