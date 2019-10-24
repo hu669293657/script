@@ -1,0 +1,33 @@
+@echo off 
+
+:shutdown
+set /p input=请选择您需要选择的模式(1.定时 2.计时 3.取消关机):
+if /i '%input%'=='1' goto dingshi
+if /i '%input%'=='2' goto jishi
+if /i '%input%'=='3' goto quxiao
+echo 您输入的字符串有误,请重新输入 && goto shutdown
+
+:dingshi
+set dingshioption=
+set /p dingshioption=请输入您想要关机的时间:
+schtasks /create /tn "关机" /tr "shutdown /s" /sc once /st %dingshioption%
+goto shutdown
+
+
+:jishi
+set jishioption=
+set /p jishioption=请输入您想要在多少分钟后关机:
+set /a res = %jishioption%*60
+schtasks /create /tn "关机" /tr "shutdown -s -t %res%" /sc once /st 00:00
+schtasks /run /tn "关机"
+goto shutdown
+
+
+:quxiao
+schtasks /delete /tn "关机"
+goto shutdown
+
+
+
+
+
