@@ -1,7 +1,7 @@
 @echo off
 title 以下为本机所连接过WIFI信息及密码
 echo  注意：显示的第一项为你当前连接的WIFI
-echo  **************************************************************
+echo  ***************************************************************
 for /f "tokens=3*" %%i in ('netsh wlan show profiles ^| findstr "所有用户配置文件"') do (
     call :GetPass %%i %%j
 )
